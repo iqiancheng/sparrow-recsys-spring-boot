@@ -1,0 +1,14 @@
+version: '2'
+services:
+  sparrow:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: recsys
+    volumes:
+      - /etc/localtime:/etc/localtime
+    ports:
+      - "8080:8080"
+    tty: true
+    environment:
+      - TZ=Asia/Shanghai
