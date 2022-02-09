@@ -8,7 +8,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime
     ports:
-      - "8080:8080"
+      - "6010:8080"
     tty: true
     environment:
       - TZ=Asia/Shanghai

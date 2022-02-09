@@ -41,7 +41,7 @@ public class HttpClient {
         }
     }
 
-    public static Map<String, String> asyncMapPostRequest(String host, Map<String, String> bodyMap) throws Exception {
+    public static Map<String, String> asyncMapPostRequest(String host, Map<String, String> bodyMap) {
         if (null == bodyMap || bodyMap.isEmpty()) {
             return null;
         }
@@ -113,37 +113,6 @@ public class HttpClient {
         JSONObject instance = new JSONObject();
         instance.put("userId", 10351);
         instance.put("movieId", 52);
-
-        /*
-        instance.put("timestamp",1254725234);
-        instance.put("userGenre1","Thriller");
-        instance.put("userGenre2","Crime");
-        instance.put("userGenre3","Drama");
-        instance.put("userGenre4","Comedy");
-        instance.put("userGenre5","Action");
-
-        instance.put("movieGenre1","Comedy");
-        instance.put("movieGenre2","Drama");
-        instance.put("movieGenre3","Romance");
-
-        instance.put("userRatedMovie1",608);
-        instance.put("userRatedMovie2",6);
-        instance.put("userRatedMovie3",1);
-        instance.put("userRatedMovie4",32);
-        instance.put("userRatedMovie5",25);
-
-        instance.put("movieId",52);
-        instance.put("rating",4.0);
-
-        instance.put("releaseYear",1995);
-        instance.put("movieRatingCount",2033);
-        instance.put("movieAvgRating",3.54);
-        instance.put("movieRatingStddev",0.91);
-        instance.put("userRatingCount",7);
-        instance.put("userAvgReleaseYear","1995.43");
-        instance.put("userReleaseYearStddev",0.53);
-        instance.put("userAvgRating",3.86);
-        instance.put("userRatingStddev",0.69);*/
 
 
         JSONObject instance2 = new JSONObject();

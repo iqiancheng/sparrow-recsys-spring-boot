@@ -10,20 +10,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.io.File;
 import java.util.*;
 
 /**
- * DataManager is an utility class, takes charge of all data loading logic.
+ * DataManager is a utility class, takes charge of all data loading logic.
  */
 @Service
 @Slf4j
 public class DataManager {
     //singleton instance
-    HashMap<Integer, Movie> movieMap = new HashMap<>();
-    HashMap<Integer, User> userMap= new HashMap<>();
+    final HashMap<Integer, Movie> movieMap = new HashMap<>();
+    final HashMap<Integer, User> userMap= new HashMap<>();
     //genre reverse index for quick querying all movies in a genre
-    HashMap<String, List<Movie>> genreReverseIndexMap = new HashMap<>();
+    final HashMap<String, List<Movie>> genreReverseIndexMap = new HashMap<>();
 
     @PostConstruct
     private void init(){
@@ -46,17 +45,17 @@ public class DataManager {
         loadRatingData(ratingDataPath);
         loadMovieEmb(movieEmbPath, movieRedisKey);
         if (Config.IS_LOAD_ITEM_FEATURE_FROM_REDIS) {
-            loadMovieFeatures("mf:");
+            loadMovieFeatures();
         }
 
-        loadUserEmb(userEmbPath, userRedisKey);
+        loadUserEmb(userEmbPath);
     }
 
     //load movie data from movies.csv
-    private void loadMovieData(String movieDataPath) throws Exception {
+    private void loadMovieData(String movieDataPath) {
         log.info("Loading movie data from {} ...", movieDataPath);
         boolean skipFirstLine = true;
-        try (Scanner scanner = new Scanner(this.getClass().getResourceAsStream (movieDataPath))) {
+        try (Scanner scanner = new Scanner(Objects.requireNonNull(this.getClass().getResourceAsStream(movieDataPath)))) {
             while (scanner.hasNextLine()) {
                 String movieRawData = scanner.nextLine();
                 if (skipFirstLine) {
@@ -90,11 +89,11 @@ public class DataManager {
     }
 
     //load movie embedding
-    private void loadMovieEmb(String movieEmbPath, String embKey) throws Exception {
+    private void loadMovieEmb(String movieEmbPath, String embKey) {
         if (Config.EMB_DATA_SOURCE.equals(Config.DATA_SOURCE_FILE)) {
             log.info("Loading movie embedding from {} ...", movieEmbPath);
             int validEmbCount = 0;
-            try (Scanner scanner = new Scanner(this.getClass().getResourceAsStream (movieEmbPath))) {
+            try (Scanner scanner = new Scanner(Objects.requireNonNull(this.getClass().getResourceAsStream(movieEmbPath)))) {
                 while (scanner.hasNextLine()) {
                     String movieRawEmbData = scanner.nextLine();
                     String[] movieEmbData = movieRawEmbData.split(":");
@@ -127,9 +126,9 @@ public class DataManager {
     }
 
     //load movie features
-    private void loadMovieFeatures(String movieFeaturesPrefix) throws Exception {
+    private void loadMovieFeatures() {
         log.info("Loading movie features from Redis ...");
-        Set<String> movieFeaturesKeys = RedisClient.getInstance().keys(movieFeaturesPrefix + "*");
+        Set<String> movieFeaturesKeys = RedisClient.getInstance().keys("mf:" + "*");
         int validFeaturesCount = 0;
         for (String movieFeaturesKey : movieFeaturesKeys) {
             String movieId = movieFeaturesKey.split(":")[1];
@@ -144,11 +143,11 @@ public class DataManager {
     }
 
     //load user embedding
-    private void loadUserEmb(String userEmbPath, String embKey) throws Exception {
+    private void loadUserEmb(String userEmbPath) {
         if (Config.EMB_DATA_SOURCE.equals(Config.DATA_SOURCE_FILE)) {
             log.info("Loading user embedding from {} ...", userEmbPath);
             int validEmbCount = 0;
-            try (Scanner scanner = new Scanner(this.getClass().getResourceAsStream (userEmbPath))) {
+            try (Scanner scanner = new Scanner(Objects.requireNonNull(this.getClass().getResourceAsStream(userEmbPath)))) {
                 while (scanner.hasNextLine()) {
                     String userRawEmbData = scanner.nextLine();
                     String[] userEmbData = userRawEmbData.split(":");
@@ -181,11 +180,11 @@ public class DataManager {
     }
 
     //load links data from links.csv
-    private void loadLinkData(String linkDataPath) throws Exception {
+    private void loadLinkData(String linkDataPath) {
         log.info("Loading link data from  {} ...", linkDataPath);
         int count = 0;
         boolean skipFirstLine = true;
-        try (Scanner scanner = new Scanner(this.getClass().getResourceAsStream (linkDataPath))) {
+        try (Scanner scanner = new Scanner(Objects.requireNonNull(this.getClass().getResourceAsStream(linkDataPath)))) {
             while (scanner.hasNextLine()) {
                 String linkRawData = scanner.nextLine();
                 if (skipFirstLine) {
@@ -208,11 +207,11 @@ public class DataManager {
     }
 
     //load ratings data from ratings.csv
-    private void loadRatingData(String ratingDataPath) throws Exception {
+    private void loadRatingData(String ratingDataPath) {
         log.info("Loading rating data from {} ...", ratingDataPath);
         boolean skipFirstLine = true;
         int count = 0;
-        try (Scanner scanner = new Scanner(this.getClass().getResourceAsStream (ratingDataPath))) {
+        try (Scanner scanner = new Scanner(Objects.requireNonNull(this.getClass().getResourceAsStream(ratingDataPath)))) {
             while (scanner.hasNextLine()) {
                 String ratingRawData = scanner.nextLine();
                 if (skipFirstLine) {

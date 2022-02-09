@@ -27,12 +27,10 @@ public class SimilarMovieService {
         HashMap<Movie, Double> candidateScoreMap = new HashMap<>();
         for (Movie candidate : candidates) {
             double similarity;
-            switch (model) {
-                case "emb":
-                    similarity = calculateEmbSimilarScore(movie, candidate);
-                    break;
-                default:
-                    similarity = calculateSimilarScore(movie, candidate);
+            if ("emb".equals(model)) {
+                similarity = calculateEmbSimilarScore(movie, candidate);
+            } else {
+                similarity = calculateSimilarScore(movie, candidate);
             }
             candidateScoreMap.put(candidate, similarity);
         }
