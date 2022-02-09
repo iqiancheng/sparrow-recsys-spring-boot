@@ -26,7 +26,6 @@ hs_err_pid*
 .vscode
 .idea
 .DS_store
-data
 target/
 SparrowRecSys.iml
 TFRecModel.iml
