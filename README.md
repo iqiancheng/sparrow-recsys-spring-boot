@@ -2,7 +2,6 @@
 Spring Boot 版本的SparrowRecSys，支持 Docker 一键运行。
 
 ## Overview
-![](docs/preview.png)
 ![](docs/related.png)
 
 ## Usage
