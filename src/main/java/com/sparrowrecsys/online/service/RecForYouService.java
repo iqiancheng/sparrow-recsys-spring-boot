@@ -161,7 +161,7 @@ public class RecForYouService {
         instancesRoot.put("instances", instances);
 
         //need to confirm the tf serving end point
-        String predictionScores = asyncSinglePostRequest("http://10.101.36.182:8501/v1/models/recmodel:predict", instancesRoot.toString());
+        String predictionScores = asyncSinglePostRequest("http://localhost:8501/v1/models/recmodel:predict", instancesRoot.toString());
         log.info("send user" + user.getUserId() + " request to tf serving.");
 
         JSONObject predictionsObject = new JSONObject(predictionScores);

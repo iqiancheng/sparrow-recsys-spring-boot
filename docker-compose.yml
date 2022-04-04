@@ -12,3 +12,19 @@ services:
     tty: true
     environment:
       - TZ=Asia/Shanghai
+    depends_on:
+      - tf-serving
+
+# tensorflow serving
+  tf-serving:
+      container_name: serving
+      ports:
+        - '8501:8501'
+      volumes:
+        - /etc/localtime:/etc/localtime
+        - '~/IdeaProjects/sparrow-recsys-spring-boot/src/main/resources/data/modeldata/neuralcf:/models/recmodel'
+      environment:
+        - TZ=Asia/Shanghai
+        - MODEL_NAME=recmodel
+      image: 'emacski/tensorflow-serving' # for macOS M1 chip
+      #image: 'tensorflow/serving'
