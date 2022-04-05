@@ -1,6 +1,6 @@
 version: '2'
 services:
-  sparrow:
+  recsys:
     build:
       context: .
       dockerfile: Dockerfile
@@ -13,10 +13,10 @@ services:
     environment:
       - TZ=Asia/Shanghai
     depends_on:
-      - tf-serving
+      - serving
 
 # tensorflow serving
-  tf-serving:
+  serving:
       container_name: serving
       ports:
         - '8501:8501'
