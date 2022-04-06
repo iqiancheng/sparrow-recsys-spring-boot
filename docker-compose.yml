@@ -27,4 +27,4 @@ services:
         - TZ=Asia/Shanghai
         - MODEL_NAME=recmodel
       image: 'emacski/tensorflow-serving' # for macOS M1 chip
-      #image: 'tensorflow/serving'
+      #image: 'tensorflow/serving' # for intel x86 chip
