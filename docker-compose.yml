@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     container_name: recsys
     volumes:
-      - /etc/localtime:/etc/localtime
+      - '/etc/localtime:/etc/localtime'
     ports:
       - "6010:8080"
     tty: true
@@ -21,7 +21,7 @@ services:
       ports:
         - '8501:8501'
       volumes:
-        - /etc/localtime:/etc/localtime
+        - '/etc/localtime:/etc/localtime'
         - './src/main/resources/data/modeldata/neuralcf:/models/recmodel'
       environment:
         - TZ=Asia/Shanghai
