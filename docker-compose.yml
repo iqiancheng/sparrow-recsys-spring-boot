@@ -22,7 +22,7 @@ services:
         - '8501:8501'
       volumes:
         - /etc/localtime:/etc/localtime
-        - '~/IdeaProjects/sparrow-recsys-spring-boot/src/main/resources/data/modeldata/neuralcf:/models/recmodel'
+        - './src/main/resources/data/modeldata/neuralcf:/models/recmodel'
       environment:
         - TZ=Asia/Shanghai
         - MODEL_NAME=recmodel
